@@ -48,9 +48,5 @@ Once the core functionality is complete, the group plans to explore additional f
    - The repository will be well-organized with a detailed **README.md** documenting the project’s setup, installation instructions, and features.
    - A **commit history** with frequent commits (goal: **30+ commits**) and descriptive commit messages.
 
-2. **Documentation**:
-   - **Blog Post**: A **750-word blog post** will be written to discuss a technical aspect of the project.
-   - **Video Walkthrough**: A **3-minute video** will be created to explain the core features and functionality of the application.
-
 ## Conclusion
 This project will demonstrate the group's proficiency in React and full-stack web development, covering key topics such as client-side routing, state management, API integration, and application deployment. The team is excited to tackle this project and enhance their skill set by solving real-world problems with modern development techniques.
