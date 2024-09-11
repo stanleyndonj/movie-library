@@ -1,0 +1,48 @@
+.navbar > a{
+    display: inline-block;
+    box-sizing: border-box;
+    width: 70px;
+    padding: 5px;
+    margin: 0 6px 6px;
+    text-decoration: none;
+    text-align: center;
+    font-size: min(10vw, 15px) ;
+    color: black;
+}
+  
+a.active {
+    color: white;
+}
+.navbar{
+    display: flex;
+    justify-content:space-between;
+    gap: 30px;
+}
+.mainnav{
+    display: flex;
+    justify-content: space-between;
+    background-color:grey ;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.search{
+    padding: 10px;
+    border-radius: 5px;
+    outline: none;
+    border-color: white;
+    border: 0px;
+}
+.addbutton{
+    background-color: brown;
+    color: white;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+    border-color: brown;
+    outline: none;
+    border: 0px;
+}

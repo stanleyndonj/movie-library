@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import "./MovieList.css"
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
@@ -36,7 +37,7 @@ const MovieList = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div>
+    <div className='main'>
       <h2>Movie List</h2>
       <input
         type="text"
