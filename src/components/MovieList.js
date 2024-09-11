@@ -1,5 +1,6 @@
 // src/components/MovieList.js
 import React, { useState, useEffect } from 'react';
+import "./MovieList.css"
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]); // state to hold the list of movies
@@ -38,10 +39,10 @@ const MovieList = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div>
+    <div className='main'>
       <h2>Movie List</h2>
       {error && <p>{error}</p>}
-      <ul>
+      <ul className='movielist'>
         {currentMovies.map(movie => (
           <li key={movie.imdbID}>
             <h3>{movie.Title}</h3>
