@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './MovieList.css';
 
-const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => {
+const EpisodesList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => {
   const [movies, setMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [moviesPerPage] = useState(8); // 8 movies per page for 2 rows
@@ -15,7 +15,7 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
     const fetchMovies = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`http://www.omdbapi.com/?s=avengers&type=movie&apikey=${API_KEY}`);
+        const response = await fetch(`http://www.omdbapi.com/?s=avengers&type=episode&apikey=${API_KEY}`);
         const data = await response.json();
         if (data.Response === 'True') {
           setMovies(data.Search);
@@ -23,7 +23,7 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
           setError(data.Error);
         }
       } catch (error) {
-        setError('Error fetching movies');
+        setError('Error fetching episodes');
       } finally {
         setLoading(false);
       }
@@ -39,7 +39,7 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
 
     setLoading(true);
     try {
-      const response = await fetch(`http://www.omdbapi.com/?s=${searchQuery}&type=movie&apikey=${API_KEY}`);
+      const response = await fetch(`http://www.omdbapi.com/?s=${searchQuery}&type=episode&apikey=${API_KEY}`);
       const data = await response.json();
       if (data.Response === 'True') {
         setMovies(data.Search);
@@ -61,7 +61,7 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
 
   return (
     <div className="main">
-      <h2>Movie List</h2>
+      <h2>Episodes List</h2>
 
       {/* Search Bar */}
       <div className="search-bar">
@@ -69,7 +69,7 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search for a movie..."
+          placeholder="Search for an episode..."
         />
         <button className="search-btn" onClick={fetchMoviesBySearch}>
           Search
@@ -110,7 +110,7 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
 
           {/* Display Movies in Library */}
           <div className="library-section">
-            <h2>Your Movie Library</h2>
+            <h2>Your Library</h2>
             {library.length > 0 ? (
               <div className="movie-grid">
                 {library.map((movie) => (
@@ -128,7 +128,7 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
                 ))}
               </div>
             ) : (
-              <p>Your library is empty. Add some movies!</p>
+              <p>Your library is empty. Add some episodes!</p>
             )}
           </div>
         </>
@@ -137,4 +137,4 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
   );
 };
 
-export default MovieList;
+export default EpisodesList;

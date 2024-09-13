@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './MovieList.css';
 
-const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => {
+const SeriesList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => {
   const [movies, setMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [moviesPerPage] = useState(8); // 8 movies per page for 2 rows
@@ -15,7 +15,7 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
     const fetchMovies = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`http://www.omdbapi.com/?s=avengers&type=movie&apikey=${API_KEY}`);
+        const response = await fetch(`http://www.omdbapi.com/?s=avengers&type=series&apikey=${API_KEY}`);
         const data = await response.json();
         if (data.Response === 'True') {
           setMovies(data.Search);
@@ -39,7 +39,7 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
 
     setLoading(true);
     try {
-      const response = await fetch(`http://www.omdbapi.com/?s=${searchQuery}&type=movie&apikey=${API_KEY}`);
+      const response = await fetch(`http://www.omdbapi.com/?s=${searchQuery}&type=series&apikey=${API_KEY}`);
       const data = await response.json();
       if (data.Response === 'True') {
         setMovies(data.Search);
@@ -61,7 +61,7 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
 
   return (
     <div className="main">
-      <h2>Movie List</h2>
+      <h2>Series List</h2>
 
       {/* Search Bar */}
       <div className="search-bar">
@@ -101,7 +101,7 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
             ))}
           </div>
           <div className="pagination">
-            {Array.from({ length: Math.ceil(movies.length / moviesPerPage) }, (_, index) => (
+            {Array.from({ length: Math.ceil(movies?.length / moviesPerPage) }, (_, index) => (
               <button key={index + 1} onClick={() => paginate(index + 1)}>
                 {index + 1}
               </button>
@@ -110,8 +110,8 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
 
           {/* Display Movies in Library */}
           <div className="library-section">
-            <h2>Your Movie Library</h2>
-            {library.length > 0 ? (
+            <h2>Your Library</h2>
+            {library?.length > 0 ? (
               <div className="movie-grid">
                 {library.map((movie) => (
                   <div className="movie-tile" key={movie.imdbID}>
@@ -137,4 +137,4 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
   );
 };
 
-export default MovieList;
+export default SeriesList;

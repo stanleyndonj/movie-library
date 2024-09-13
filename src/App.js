@@ -8,6 +8,8 @@ import NavBar from './components/NavBar';
 import NotFound from './components/NotFound';
 import Library from './components/Library';
 import './App.css'; // Ensure this file handles light/dark theme styles
+import SeriesList from './components/SeriesList';
+import EpisodesList from './components/EpisodesList';
 
 function App() {
   const [library, setLibrary] = useState([]);
@@ -35,7 +37,9 @@ function App() {
         <Routes>
           <Route path="/" element={<MovieList handleAddToLibrary={handleAddToLibrary} library={library} handleRemoveFromLibrary={handleRemoveFromLibrary} />} />
           <Route path="/add-movie" element={<AddMovieForm />} />
-          <Route path="/library" element={<Library library={library} />} />
+          <Route path="/library" element={<Library library={library}  handleRemoveFromLibrary={handleRemoveFromLibrary} />} />
+          <Route path="/series" element={<SeriesList handleAddToLibrary={handleAddToLibrary} library={library} handleRemoveFromLibrary={handleRemoveFromLibrary} />} />
+          <Route path="/episodes" element={<EpisodesList handleAddToLibrary={handleAddToLibrary} library={library} handleRemoveFromLibrary={handleRemoveFromLibrary} />} />
           <Route path="/movies/:id" element={<MovieDetail />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

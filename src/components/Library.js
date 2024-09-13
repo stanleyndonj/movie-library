@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Library = () => {
+const Library = ({library,handleRemoveFromLibrary}) => {
   const [movies, setMovies] = useState([]); // State to hold the list of movies
   const [loading, setLoading] = useState(true); // State for loading
 
@@ -28,22 +28,28 @@ const Library = () => {
 
   // Render the list of movies
   return (
-    <div className="library">
-      <h1>Movie Library</h1>
-      {movies.length > 0 ? (
-        <ul>
-          {movies.map((movie) => (
-            <li key={movie.id}>
-              <h3>{movie.title}</h3>
-              <p>Director: {movie.director}</p>
-              <p>Year: {movie.year}</p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No movies found in the library.</p>
-      )}
-    </div>
+    <div className="library-section">
+    <h2>Your Movie Library</h2>
+    {library.length > 0 ? (
+      <div className="movie-grid">
+        {library.map((movie) => (
+          <div className="movie-tile" key={movie.imdbID}>
+            <h3>{movie.Title}</h3>
+            <p>{movie.Year}</p>
+            <img src={movie.Poster} alt={`${movie.Title} Poster`} width="100" />
+            <button
+              className="remove-from-library-btn"
+              onClick={() => handleRemoveFromLibrary(movie.imdbID)}
+            >
+              Remove from Library
+            </button>
+          </div>
+        ))}
+      </div>
+    ) : (
+      <p>Your library is empty. Add some movies!</p>
+    )}
+  </div>
   );
 };
 
