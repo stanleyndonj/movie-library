@@ -1,4 +1,9 @@
 {
-    "movies": []
-  }
-  
+  "movies": [
+    {
+      "id": 1,
+      "title": "Movie Title",
+      "year": 2023
+    }
+  ]
+}
