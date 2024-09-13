@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './MovieList.css';
 
-const MovieList = ({ handleAddToLibrary, library }) => {
+const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => {
   const [movies, setMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [moviesPerPage] = useState(8); // 8 movies per page for 2 rows
@@ -12,7 +12,6 @@ const MovieList = ({ handleAddToLibrary, library }) => {
   const API_KEY = '9e92c4e4';
 
   useEffect(() => {
-    // Fetch popular movies on initial load
     const fetchMovies = async () => {
       setLoading(true);
       try {
@@ -119,6 +118,12 @@ const MovieList = ({ handleAddToLibrary, library }) => {
                     <h3>{movie.Title}</h3>
                     <p>{movie.Year}</p>
                     <img src={movie.Poster} alt={`${movie.Title} Poster`} width="100" />
+                    <button
+                      className="remove-from-library-btn"
+                      onClick={() => handleRemoveFromLibrary(movie.imdbID)}
+                    >
+                      Remove from Library
+                    </button>
                   </div>
                 ))}
               </div>
