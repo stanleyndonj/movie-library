@@ -39,6 +39,12 @@
     border-radius: 5px;
     text-align: center;
     background-color: #f9f9f9;
+    position: relative; /* Added for hover effect positioning */
+    transition: transform 0.3s ease; /* Added for smooth hover effect */
+  }
+  
+  .movie-tile:hover {
+    transform: translateY(-5px); /* Added for hover lift effect */
   }
   
   .movie-tile img {
@@ -81,4 +87,29 @@
   .library-section h2 {
     margin-bottom: 20px;
   }
+  
+  /* Hover effect: Show more movie details */
+  .movie-details {
+    display: none; /* Hidden by default */
+    position: absolute; /* Position relative to movie-tile */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 5px;
+    z-index: 1; /* Above other content */
+    opacity: 0; /* Added for fade effect */
+    transition: opacity 0.3s ease; /* Smooth transition */
+  }
+  
+  .movie-tile:hover .movie-details {
+    display: block; /* Show on hover */
+    opacity: 1; /* Fade in */
+  }
+  
+  /* Theme-related classes can be added here */
   
