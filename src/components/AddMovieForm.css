@@ -1,0 +1,40 @@
+.add-movie-container {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    margin: 20px auto;
+  }
+  
+  .add-movie-container h2 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .add-movie-container form label {
+    display: block;
+    margin: 10px 0 5px;
+    color: #333;
+  }
+  
+  .add-movie-container form input, .add-movie-container form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .add-movie-container form button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .add-movie-container form button:hover {
+    background-color: #0056b3;
+  }
+  
