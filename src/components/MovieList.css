@@ -3,6 +3,30 @@
     text-align: center;
   }
   
+  .search-bar {
+    margin-bottom: 20px;
+  }
+  
+  .search-bar input {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .search-btn {
+    padding: 10px;
+    margin-left: 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .search-btn:hover {
+    background-color: #0056b3;
+  }
+  
   .movie-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 4 columns for movies */
@@ -48,5 +72,13 @@
   .pagination button:hover {
     background-color: #007bff;
     color: white;
+  }
+  
+  .library-section {
+    margin-top: 40px;
+  }
+  
+  .library-section h2 {
+    margin-bottom: 20px;
   }
   
