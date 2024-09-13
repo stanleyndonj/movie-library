@@ -18,7 +18,7 @@ const AddMovieForm = () => {
 
     try {
       // Making POST request to the backend to add a new movie
-      const response = await fetch('http://localhost:4000/movies', {
+      const response = await fetch('http://localhost:8000/movies', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
