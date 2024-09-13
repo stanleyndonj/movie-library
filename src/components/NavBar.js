@@ -12,7 +12,7 @@ const NavBar = () => {
         <NavLink to="#">Episodes</NavLink>
       </nav>
       <div>
-        <button className="addbutton">Add Movie</button>
+       <NavLink to="/add-movie"><button className="addbutton">Add Movie</button></NavLink>
       </div>
     </div>
   );
