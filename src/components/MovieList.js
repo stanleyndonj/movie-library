@@ -1,9 +1,9 @@
+// MovieList.js
 import React, { useState, useEffect } from 'react';
 import './MovieList.css';
 
-const MovieList = () => {
+const MovieList = ({ handleAddToLibrary, library }) => {
   const [movies, setMovies] = useState([]);
-  const [library, setLibrary] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [moviesPerPage] = useState(8); // 8 movies per page for 2 rows
   const [error, setError] = useState('');
@@ -60,15 +60,6 @@ const MovieList = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const handleAddToLibrary = (movie) => {
-    if (!library.some((libMovie) => libMovie.imdbID === movie.imdbID)) {
-      setLibrary([...library, movie]);
-      alert(`${movie.Title} has been added to your library.`);
-    } else {
-      alert(`${movie.Title} is already in your library.`);
-    }
-  };
-
   return (
     <div className="main">
       <h2>Movie List</h2>
@@ -93,7 +84,11 @@ const MovieList = () => {
         <>
           <div className="movie-grid">
             {currentMovies.map((movie) => (
-              <div className="movie-tile" key={movie.imdbID}>
+              <div
+                className="movie-tile"
+                key={movie.imdbID}
+                onMouseEnter={() => console.log('Hovered!')}
+              >
                 <h3>{movie.Title}</h3>
                 <p>{movie.Year}</p>
                 <img src={movie.Poster} alt={`${movie.Title} Poster`} width="100" />
