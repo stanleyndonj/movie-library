@@ -3,18 +3,20 @@ import './MovieList.css';
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
+  const [library, setLibrary] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [moviesPerPage] = useState(8); // 8 movies per page for 2 rows
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('Batman');
+  const [searchQuery, setSearchQuery] = useState('');
   const API_KEY = '9e92c4e4';
 
   useEffect(() => {
+    // Fetch popular movies on initial load
     const fetchMovies = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`http://www.omdbapi.com/?s=${searchQuery}&apikey=${API_KEY}`);
+        const response = await fetch(`http://www.omdbapi.com/?s=avengers&apikey=${API_KEY}`);
         const data = await response.json();
         if (data.Response === 'True') {
           setMovies(data.Search);
@@ -28,7 +30,29 @@ const MovieList = () => {
       }
     };
     fetchMovies();
-  }, [searchQuery]);
+  }, []);
+
+  const fetchMoviesBySearch = async () => {
+    if (searchQuery.trim() === '') {
+      alert('Please enter a movie name to search!');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await fetch(`http://www.omdbapi.com/?s=${searchQuery}&apikey=${API_KEY}`);
+      const data = await response.json();
+      if (data.Response === 'True') {
+        setMovies(data.Search);
+      } else {
+        setError(data.Error);
+      }
+    } catch (error) {
+      setError('Error fetching movies');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const indexOfLastMovie = currentPage * moviesPerPage;
   const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
@@ -36,49 +60,79 @@ const MovieList = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // Handle adding movie to the library
   const handleAddToLibrary = (movie) => {
-    console.log('Adding movie to library:', movie);
-    // You can implement logic to save the movie to the library, e.g., by making a POST request.
-    alert(`${movie.Title} has been added to the library.`);
+    if (!library.some((libMovie) => libMovie.imdbID === movie.imdbID)) {
+      setLibrary([...library, movie]);
+      alert(`${movie.Title} has been added to your library.`);
+    } else {
+      alert(`${movie.Title} is already in your library.`);
+    }
   };
 
   return (
     <div className="main">
       <h2>Movie List</h2>
-      <input
-        type="text"
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        placeholder="Search for a movie..."
-      />
+
+      {/* Search Bar */}
+      <div className="search-bar">
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search for a movie..."
+        />
+        <button className="search-btn" onClick={fetchMoviesBySearch}>
+          Search
+        </button>
+      </div>
+
       {error && <p>{error}</p>}
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <div className="movie-grid">
-          {currentMovies.map((movie) => (
-            <div className="movie-tile" key={movie.imdbID}>
-              <h3>{movie.Title}</h3>
-              <p>{movie.Year}</p>
-              <img src={movie.Poster} alt={`${movie.Title} Poster`} width="100" />
-              <button
-                className="add-to-library-btn"
-                onClick={() => handleAddToLibrary(movie)}
-              >
-                Add to Library
+        <>
+          <div className="movie-grid">
+            {currentMovies.map((movie) => (
+              <div className="movie-tile" key={movie.imdbID}>
+                <h3>{movie.Title}</h3>
+                <p>{movie.Year}</p>
+                <img src={movie.Poster} alt={`${movie.Title} Poster`} width="100" />
+                <button
+                  className="add-to-library-btn"
+                  onClick={() => handleAddToLibrary(movie)}
+                >
+                  Add to Library
+                </button>
+              </div>
+            ))}
+          </div>
+          <div className="pagination">
+            {Array.from({ length: Math.ceil(movies.length / moviesPerPage) }, (_, index) => (
+              <button key={index + 1} onClick={() => paginate(index + 1)}>
+                {index + 1}
               </button>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+
+          {/* Display Movies in Library */}
+          <div className="library-section">
+            <h2>Your Movie Library</h2>
+            {library.length > 0 ? (
+              <div className="movie-grid">
+                {library.map((movie) => (
+                  <div className="movie-tile" key={movie.imdbID}>
+                    <h3>{movie.Title}</h3>
+                    <p>{movie.Year}</p>
+                    <img src={movie.Poster} alt={`${movie.Title} Poster`} width="100" />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p>Your library is empty. Add some movies!</p>
+            )}
+          </div>
+        </>
       )}
-      <div className="pagination">
-        {Array.from({ length: Math.ceil(movies.length / moviesPerPage) }, (_, index) => (
-          <button key={index + 1} onClick={() => paginate(index + 1)}>
-            {index + 1}
-          </button>
-        ))}
-      </div>
     </div>
   );
 };
