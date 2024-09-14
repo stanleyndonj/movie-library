@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './MovieList.css';
 
 const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => {
-  const [movies, setMovies] = useState([]); // This will store combined OMDb and json-server movies
+  const [movies, setMovies] = useState([]); // Combined OMDb and json-server movies
   const [localMovies, setLocalMovies] = useState([]); // Store movies from json-server
   const [currentPage, setCurrentPage] = useState(1);
   const [moviesPerPage] = useState(8);
@@ -16,11 +16,11 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
     const fetchMovies = async () => {
       setLoading(true);
 
-      // Fetch movies from OMDb API
       try {
+        // Fetch movies from OMDb API
         const response = await fetch(`http://www.omdbapi.com/?s=avengers&type=movie&apikey=${API_KEY}`);
         const data = await response.json();
-        
+
         if (data.Response === 'True') {
           const omdbMovies = data.Search;
 
@@ -28,7 +28,8 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
           const localResponse = await fetch(`${process.env.REACT_APP_API_URL}/movies`);
           const localData = await localResponse.json();
 
-          setMovies([...omdbMovies, ...localData]); // Combine OMDb and locally added movies
+          setLocalMovies(localData); // Store locally fetched movies
+          setMovies([...omdbMovies, ...localData]); // Combine OMDb and local movies
         } else {
           setError(data.Error);
         }
@@ -50,6 +51,7 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
     }
 
     setLoading(true);
+    setError(''); // Clear previous errors before making a new search
     try {
       const response = await fetch(`http://www.omdbapi.com/?s=${searchQuery}&type=movie&apikey=${API_KEY}`);
       const data = await response.json();
@@ -64,6 +66,13 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
       setLoading(false);
     }
   };
+
+  // Clear error when search input is changed
+  useEffect(() => {
+    if (searchQuery === '') {
+      setError(''); // Clear error if search query is cleared
+    }
+  }, [searchQuery]);
 
   const indexOfLastMovie = currentPage * moviesPerPage;
   const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
