@@ -1,24 +1,34 @@
-// MovieList.js
 import React, { useState, useEffect } from 'react';
 import './MovieList.css';
 
 const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => {
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState([]); // This will store combined OMDb and json-server movies
+  const [localMovies, setLocalMovies] = useState([]); // Store movies from json-server
   const [currentPage, setCurrentPage] = useState(1);
-  const [moviesPerPage] = useState(8); // 8 movies per page for 2 rows
+  const [moviesPerPage] = useState(8);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const API_KEY = '9e92c4e4';
 
+  // Fetch movies from OMDb and json-server
   useEffect(() => {
     const fetchMovies = async () => {
       setLoading(true);
+
+      // Fetch movies from OMDb API
       try {
         const response = await fetch(`http://www.omdbapi.com/?s=avengers&type=movie&apikey=${API_KEY}`);
         const data = await response.json();
+        
         if (data.Response === 'True') {
-          setMovies(data.Search);
+          const omdbMovies = data.Search;
+
+          // Fetch movies from json-server
+          const localResponse = await fetch(`${process.env.REACT_APP_API_URL}/movies`);
+          const localData = await localResponse.json();
+
+          setMovies([...omdbMovies, ...localData]); // Combine OMDb and locally added movies
         } else {
           setError(data.Error);
         }
@@ -28,9 +38,11 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
         setLoading(false);
       }
     };
+
     fetchMovies();
   }, []);
 
+  // Fetch movies based on search query
   const fetchMoviesBySearch = async () => {
     if (searchQuery.trim() === '') {
       alert('Please enter a movie name to search!');
@@ -42,7 +54,7 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
       const response = await fetch(`http://www.omdbapi.com/?s=${searchQuery}&type=movie&apikey=${API_KEY}`);
       const data = await response.json();
       if (data.Response === 'True') {
-        setMovies(data.Search);
+        setMovies([...data.Search, ...localMovies]); // Combine with locally added movies
       } else {
         setError(data.Error);
       }
@@ -85,12 +97,12 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
             {currentMovies.map((movie) => (
               <div
                 className="movie-tile"
-                key={movie.imdbID}
+                key={movie.imdbID || movie.id} // Use imdbID for OMDb movies and id for local movies
                 onMouseEnter={() => console.log('Hovered!')}
               >
-                <h3>{movie.Title}</h3>
-                <p>{movie.Year}</p>
-                <img src={movie.Poster} alt={`${movie.Title} Poster`} width="100" />
+                <h3>{movie.Title || movie.title}</h3>
+                <p>{movie.Year || movie.releaseDate}</p>
+                <img src={movie.Poster || movie.poster} alt={`${movie.Title || movie.title} Poster`} width="100" />
                 <button
                   className="add-to-library-btn"
                   onClick={() => handleAddToLibrary(movie)}
@@ -114,13 +126,13 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
             {library.length > 0 ? (
               <div className="movie-grid">
                 {library.map((movie) => (
-                  <div className="movie-tile" key={movie.imdbID}>
-                    <h3>{movie.Title}</h3>
-                    <p>{movie.Year}</p>
-                    <img src={movie.Poster} alt={`${movie.Title} Poster`} width="100" />
+                  <div className="movie-tile" key={movie.imdbID || movie.id}>
+                    <h3>{movie.Title || movie.title}</h3>
+                    <p>{movie.Year || movie.releaseDate}</p>
+                    <img src={movie.Poster || movie.poster} alt={`${movie.Title || movie.title} Poster`} width="100" />
                     <button
                       className="remove-from-library-btn"
-                      onClick={() => handleRemoveFromLibrary(movie.imdbID)}
+                      onClick={() => handleRemoveFromLibrary(movie.imdbID || movie.id)}
                     >
                       Remove from Library
                     </button>
