@@ -7,11 +7,11 @@ This project is a React-based single page application (SPA) that demonstrates th
 
 ## Learning Goals
 
-- Build a React single page application from scratch.
+- Build a React single page application from scratch. 
 - Utilize components, props, and state management.
 - Implement client-side routing using React Router.
 - Interact with a backend API (GET and POST requests) using `json-server`.
-
+ 
 ## Project Structure
 
 The project is organized into two repositories:
