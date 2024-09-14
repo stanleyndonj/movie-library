@@ -1,3 +1,4 @@
+/* App.css */
 .App {
   text-align: center;
 }
@@ -35,4 +36,44 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Theme-related styles */
+body.light {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+body.dark {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+/* Ensure the app container itself reflects the theme */
+.App.light {
+  background-color: white;
+  color: black;
+}
+
+.App.dark {
+  background-color: #121212;
+  color: brown;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Dark mode specific button styling */
+body.dark button {
+  background-color: white;
+  color: black;
+}
+
+body.light button {
+  background-color: black;
+  color: white;
 }

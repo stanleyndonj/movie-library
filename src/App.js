@@ -1,5 +1,5 @@
 // App.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MovieList from './components/MovieList';
 import AddMovieForm from './components/AddMovieForm';
@@ -26,6 +26,11 @@ function App() {
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
+
+  // Update body class when theme changes
+  useEffect(() => {
+    document.body.className = theme;
+  }, [theme]);
 
   return (
     <Router>
