@@ -1,16 +1,86 @@
 /* Slideshow.css */
+
+/* Container styling */
 .slideshow-container {
-    width: 10%;
-    margin: 0 auto;
-  }
-  
-  .slideshow-image {
-    width: 300%;
-    height: auto;
-  }
-  
-  .slick-prev, .slick-next {
-    color: white;
-    font-size: 24px;
-  }
-  
+  width: 80%; /* Make the slideshow occupy a larger portion of the screen */
+  max-width: 1200px; /* Ensure it doesn't get too large on bigger screens */
+  margin: 20px auto; /* Center the slideshow and add some top/bottom margin */
+  position: relative; /* Required for absolute positioning of navigation buttons */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for depth */
+  border-radius: 10px; /* Slightly round the corners for a modern look */
+  overflow: hidden; /* Prevent content from overflowing the container */
+}
+
+/* Slideshow images */
+.slideshow-image {
+  width: 100%; /* Set the images to fully occupy the container width */
+  height: auto; /* Maintain aspect ratio of the images */
+  transition: transform 0.5s ease-in-out; /* Smooth transition effect for slide changes */
+}
+
+/* Navigation buttons */
+.slick-prev,
+.slick-next {
+  position: absolute; /* Position them at the sides of the slideshow */
+  top: 50%; /* Center them vertically */
+  transform: translateY(-50%); /* Adjust for proper centering */
+  color: white; /* White color for better visibility */
+  font-size: 30px; /* Larger size for easy clickability */
+  padding: 10px; /* Add some padding for a larger clickable area */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for better contrast */
+  border: none; /* Remove default button borders */
+  border-radius: 50%; /* Make them circular */
+  cursor: pointer; /* Change cursor to pointer for interactivity */
+  z-index: 1; /* Ensure buttons appear on top of the images */
+  transition: background-color 0.3s ease; /* Smooth transition when hovering */
+}
+
+/* Hover effect on buttons */
+.slick-prev:hover,
+.slick-next:hover {
+  background-color: rgba(0, 0, 0, 0.8); /* Darken the background on hover */
+}
+
+/* Left navigation button */
+.slick-prev {
+  left: 10px; /* Position 10px from the left */
+}
+
+/* Right navigation button */
+.slick-next {
+  right: 10px; /* Position 10px from the right */
+}
+
+/* Dots for slide navigation */
+.slick-dots {
+  position: absolute;
+  bottom: 15px; /* Move dots to the bottom of the container */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.slick-dots li {
+  margin: 0 5px;
+}
+
+.slick-dots li button {
+  background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+  border: none;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.slick-dots li.slick-active button {
+  background-color: white; /* Highlight active dot */
+}
+
+.slick-dots li button:hover {
+  background-color: rgba(255, 255, 255, 0.8); /* Lighten on hover */
+}
