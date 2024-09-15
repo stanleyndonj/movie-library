@@ -79,9 +79,6 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
     <div className="main">
       <h2>Movie List</h2>
 
-      {/* Slideshow at the top of the page */}
-      <Slideshow movies={movies} />
-
       {/* Search Bar */}
       <div className="search-bar">
         <input
@@ -94,6 +91,9 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
           Search
         </button>
       </div>
+
+      {/* Slideshow at the top of the page */}
+      <Slideshow movies={movies} />
 
       {error && <p>{error}</p>}
       {loading ? (

@@ -1,11 +1,11 @@
 /* Slideshow.css */
 .slideshow-container {
-    width: 80%;
+    width: 10%;
     margin: 0 auto;
   }
   
   .slideshow-image {
-    width: 100%;
+    width: 300%;
     height: auto;
   }
   
