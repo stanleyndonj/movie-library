@@ -41,9 +41,9 @@
   transform: scale(1.1); /* Slight hover zoom */
 }
 
-/* Button styling for actions (Right-side button) */
+
 .addbutton {
-  background-color: #ff4c61; /* Red background like the login button in the image */
+  background-color: #ff4c61; 
   color: white;
   padding: 6px 20px;
   border: none;
@@ -57,10 +57,10 @@
 
 .addbutton:hover {
   background-color: #e33a50;
-  transform: scale(1.1); /* Slight zoom on hover */
+  transform: scale(1.1); 
 }
 
-/* Responsive Design - Shrinking space for smaller screens */
+
 @media (max-width: 768px) {
   .mainnav {
       flex-direction: column;
