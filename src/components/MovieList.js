@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './MovieList.css';
+import Slideshow from './Slideshow'; // Import Slideshow component
 
 const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => {
   const [movies, setMovies] = useState([]); // Combined OMDb and json-server movies
@@ -83,6 +84,9 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
   return (
     <div className="main">
       <h2>Movie List</h2>
+
+      {/* Slideshow at the top of the page */}
+      <Slideshow movies={movies} />
 
       {/* Search Bar */}
       <div className="search-bar">

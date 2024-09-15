@@ -1,0 +1,16 @@
+/* Slideshow.css */
+.slideshow-container {
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .slideshow-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .slick-prev, .slick-next {
+    color: white;
+    font-size: 24px;
+  }
+  

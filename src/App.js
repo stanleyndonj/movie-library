@@ -10,10 +10,12 @@ import Library from './components/Library';
 import './App.css'; // Ensure this file handles light/dark theme styles
 import SeriesList from './components/SeriesList';
 import EpisodesList from './components/EpisodesList';
+import Slideshow from './components/Slideshow';
 
 function App() {
   const [library, setLibrary] = useState([]);
   const [theme, setTheme] = useState('light');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleAddToLibrary = (movie) => {
     setLibrary((prevLibrary) => [...prevLibrary, movie]);
@@ -27,6 +29,10 @@ function App() {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
+  const fetchMoviesBySearch = () => {
+    // Implement search functionality here or pass it down from MovieList if already implemented there.
+  };
+
   // Update body class when theme changes
   useEffect(() => {
     document.body.className = theme;
@@ -35,10 +41,12 @@ function App() {
   return (
     <Router>
       <div className={`App ${theme}`}>
-        <NavBar />
-        <button onClick={toggleTheme}>
-          Toggle Theme
-        </button>
+        <NavBar
+          toggleTheme={toggleTheme}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          fetchMoviesBySearch={fetchMoviesBySearch}
+        />
         <Routes>
           <Route path="/" element={<MovieList handleAddToLibrary={handleAddToLibrary} library={library} handleRemoveFromLibrary={handleRemoveFromLibrary} />} />
           <Route path="/add-movie" element={<AddMovieForm />} />
