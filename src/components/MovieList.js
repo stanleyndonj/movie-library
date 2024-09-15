@@ -11,6 +11,7 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const API_KEY = '9e92c4e4';
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
   // Fetch movies from OMDb and json-server
   useEffect(() => {
@@ -26,7 +27,7 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
           const omdbMovies = data.Search;
 
           // Fetch movies from json-server
-          const localResponse = await fetch(`${process.env.REACT_APP_API_URL}/movies`);
+          const localResponse = await fetch(`${API_URL}/movies`);
           const localData = await localResponse.json();
 
           setLocalMovies(localData); // Store locally fetched movies
@@ -42,7 +43,7 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
     };
 
     fetchMovies();
-  }, []);
+  }, [API_KEY, API_URL]); // Adding missing dependencies
 
   // Fetch movies based on search query
   const fetchMoviesBySearch = async () => {
@@ -67,13 +68,6 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
       setLoading(false);
     }
   };
-
-  // Clear error when search input is changed
-  useEffect(() => {
-    if (searchQuery === '') {
-      setError(''); // Clear error if search query is cleared
-    }
-  }, [searchQuery]);
 
   const indexOfLastMovie = currentPage * moviesPerPage;
   const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
@@ -111,7 +105,6 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
               <div
                 className="movie-tile"
                 key={movie.imdbID || movie.id} // Use imdbID for OMDb movies and id for local movies
-                onMouseEnter={() => console.log('Hovered!')}
               >
                 <h3>{movie.Title || movie.title}</h3>
                 <p>{movie.Year || movie.releaseDate}</p>
@@ -126,35 +119,15 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
             ))}
           </div>
           <div className="pagination">
-            {Array.from({ length: Math.ceil(movies.length / moviesPerPage) }, (_, index) => (
-              <button key={index + 1} onClick={() => paginate(index + 1)}>
+            {Array.from({ length: Math.ceil(movies.length / moviesPerPage) }).map((_, index) => (
+              <button
+                key={index + 1}
+                className={currentPage === index + 1 ? 'active' : ''}
+                onClick={() => paginate(index + 1)}
+              >
                 {index + 1}
               </button>
             ))}
-          </div>
-
-          {/* Display Movies in Library */}
-          <div className="library-section">
-            <h2>Your Movie Library</h2>
-            {library.length > 0 ? (
-              <div className="movie-grid">
-                {library.map((movie) => (
-                  <div className="movie-tile" key={movie.imdbID || movie.id}>
-                    <h3>{movie.Title || movie.title}</h3>
-                    <p>{movie.Year || movie.releaseDate}</p>
-                    <img src={movie.Poster || movie.poster} alt={`${movie.Title || movie.title} Poster`} width="100" />
-                    <button
-                      className="remove-from-library-btn"
-                      onClick={() => handleRemoveFromLibrary(movie.imdbID || movie.id)}
-                    >
-                      Remove from Library
-                    </button>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p>Your library is empty. Add some movies!</p>
-            )}
           </div>
         </>
       )}
