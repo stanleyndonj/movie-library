@@ -20,7 +20,7 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
 
       try {
         // Fetch movies from OMDb API
-        const response = await fetch(`http://www.omdbapi.com/?s=avengers&type=movie&apikey=${API_KEY}`);
+        const response = await fetch(`https://www.omdbapi.com/?s=avengers&type=movie&apikey=${API_KEY}`);
         const data = await response.json();
 
         if (data.Response === 'True') {
@@ -55,7 +55,7 @@ const MovieList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) => 
     setLoading(true);
     setError(''); // Clear previous errors before making a new search
     try {
-      const response = await fetch(`http://www.omdbapi.com/?s=${searchQuery}&type=movie&apikey=${API_KEY}`);
+      const response = await fetch(`https://www.omdbapi.com/?s=${searchQuery}&type=movie&apikey=${API_KEY}`);
       const data = await response.json();
       if (data.Response === 'True') {
         setMovies([...data.Search, ...localMovies]); // Combine with locally added movies

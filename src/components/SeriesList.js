@@ -15,7 +15,7 @@ const SeriesList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) =>
     const fetchMovies = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`http://www.omdbapi.com/?s=avengers&type=series&apikey=${API_KEY}`);
+        const response = await fetch(`https://www.omdbapi.com/?s=avengers&type=series&apikey=${API_KEY}`);
         const data = await response.json();
         if (data.Response === 'True') {
           setMovies(data.Search);
@@ -39,7 +39,7 @@ const SeriesList = ({ handleAddToLibrary, library, handleRemoveFromLibrary }) =>
 
     setLoading(true);
     try {
-      const response = await fetch(`http://www.omdbapi.com/?s=${searchQuery}&type=series&apikey=${API_KEY}`);
+      const response = await fetch(`https://www.omdbapi.com/?s=${searchQuery}&type=series&apikey=${API_KEY}`);
       const data = await response.json();
       if (data.Response === 'True') {
         setMovies(data.Search);
