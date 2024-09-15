@@ -9,7 +9,7 @@ body {
 }
 
 .main {
-  margin: 30px;
+  margin: 25px;
   text-align: center;
 }
 
@@ -55,10 +55,10 @@ body {
 
 .movie-tile {
   border: none;
-  padding: 10px;
+  padding: 0%;
   border-radius: 10px;
   text-align: center;
-  background-color: #1a1a1a;
+  background-color: #fcf6f6;
   position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Adds shadow to the tiles */
@@ -66,14 +66,14 @@ body {
 
 .movie-tile:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 8px 58px rgba(0, 0, 0, 0.8);
 }
 
 .movie-tile img {
   display: block;
   margin: 0 auto;
   border-radius: 5px;
-  max-width: 100%;
+  max-width: 250%;
   height: auto;
 }
 
